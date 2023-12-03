@@ -58,6 +58,7 @@ int main(){
                 }
                 case 'b':{
                     double newMatricula;
+
                     cout<<"Ingrese el nuevo nombre";
                     cin>>newMatricula;
                     empleados[indiceModificar].setMatricula(newMatricula);
@@ -66,6 +67,7 @@ int main(){
                 }
                 case 'c':{
                     double newSalario;
+
                     cout<<"Ingrese el nuevo nombre";
                     cin>>newSalario;
                     empleados[indiceModificar].setSalario(newSalario);
@@ -100,7 +102,22 @@ int main(){
         }
 
         case 'c': {
+            int indiceEliminar;
+                 
+            cout << "Ingrese el indice de la cuenta: ";
+            cin >> indiceEliminar;
 
+            if (indiceEliminar >= 0 && indiceEliminar < contador) {
+                for (int i = indiceEliminar; i < contador - 1; ++i) {
+                    empleados[i] = empleados[i + 1];
+                }
+                --contador;
+            } else {
+                std::cout << "Posición inválida\n";
+            }
+
+            std::cout << "El usuario ha sido eliminado correctamente\n" ;
+            break;
 
         }
         case 'd' :{
@@ -109,6 +126,7 @@ int main(){
                 cout<<"Matricula: "<<empleados[i].getMatricula()<<"\n";
                 cout<<"Salario: "<<empleados[i].getSalario()<<"\n";
             }
+            break;
         }
         case 'e':{
             int indice;
