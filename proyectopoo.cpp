@@ -1,6 +1,8 @@
 #include <iostream>
 #include "proyectopoo.h"
 #include <cstring> // Incluye la biblioteca para strlen
+#include <utility> // Incluimos la librería para usar std::pair
+
 using namespace std;
 
 empresa::empresa(string nombre, string matricula, double salario) : nombre(nombre),matricula(matricula),salario(salario) {}
@@ -14,7 +16,7 @@ int main(){
     char opcion;
 
     do {
-        cout << "a)Agregar nuevo empleado b)Modificar empleado c)Eliminar empleado d)Consultar plantilla e)Consultar empleado f)Salir ";
+        cout << "a)Agregar nuevo empleado b)Modificar empleado c)Eliminar empleado d)Consultar plantilla e)Consultar empleado f)Sumar bonos o reducciones g)Salir ";
         cin >> opcion;
 
         switch (opcion) {
@@ -35,7 +37,7 @@ int main(){
         }
 
         case 'b': {
-           int indiceModificar;
+           int indiceModificar=0;
            char opcionModificar;
             cout << "Ingrese el indice de la cuenta: ";
             cin >> indiceModificar;
@@ -102,7 +104,7 @@ int main(){
         }
 
         case 'c': {
-            int indiceEliminar;
+            int indiceEliminar=0;
                  
             cout << "Ingrese el indice de la cuenta: ";
             cin >> indiceEliminar;
@@ -112,11 +114,9 @@ int main(){
                     empleados[i] = empleados[i + 1];
                 }
                 --contador;
-            } else {
-                std::cout << "Posición inválida\n";
-            }
+            } else {cout << "Posición inválida\n"; }
 
-            std::cout << "El usuario ha sido eliminado correctamente\n" ;
+            cout << "El usuario ha sido eliminado correctamente\n" ;
             break;
 
         }
@@ -124,24 +124,80 @@ int main(){
             for (int i=0; i<contador;i++){
                 cout<<"Nombre: "<<empleados[i].getNombre()<<"\n";
                 cout<<"Matricula: "<<empleados[i].getMatricula()<<"\n";
-                cout<<"Salario: "<<empleados[i].getSalario()<<"\n";
+                cout<<"Salario base: "<<empleados[i].getSalario()<<"\n";
+                cout << "Bonificaciones:\n" ;
+                    for (const auto& bono : empleados[i].obtenerBonificacion()) {
+                        cout << "Concepto: " << bono.second << ", Monto: " << bono.first<<"\n" ;
+                    }
+                cout<<"Deducciones: \n";
+                    for (const auto& deduccion : empleados[i].obtenerDeduccion()) {
+                        cout << "Concepto: " << deduccion.second << ", Monto: " << deduccion.first<<"\n" ;
+                    }
+                cout<<"Salario neto: "<<empleados[i].calcularSalarioTotal()<<"\n";
+
+                    
             }
             break;
         }
         case 'e':{
-            int indice;
+            int indice=0;
             cout<<"Seleciona el indice de el empleado que deseas consultar";
             cin>>indice;
             cout<<"Nombre: "<<empleados[indice].getNombre()<<"\n";
             cout<<"Matricula: "<<empleados[indice].getMatricula()<<"\n";
-            cout<<"Salario: "<<empleados[indice].getSalario()<<"\n";
+            cout<<"Salario base: "<<empleados[indice].getSalario()<<"\n";
+            cout << "Bonificaciones:\n" ;
+                for (const auto& bono : empleados[indice].obtenerBonificacion()) {
+                    cout << "Concepto: " << bono.second << ", Monto: " << bono.first<<"\n" ;
+                }
+            cout<<"Deducciones: \n";
+                for (const auto& deduccion : empleados[indice].obtenerDeduccion()) {
+                    cout << "Concepto: " << deduccion.second << ", Monto: " << deduccion.first<<"\n" ;
+                }
+            cout<<"Salario neto: "<<empleados[indice].calcularSalarioTotal()<<"\n";
         }
+        case 'f':{
+            char opcionBonos;
+            int i=0;
+            cout<<"Seleciona el indice de el empleado que deseas modificar";
+            cin>>i;
 
-        
+            do{
+                cout<<"a)agregar bono b)agregar deducción c)salir";
+                cin>>opcionBonos;
+                switch (opcionBonos){
+                case 'a':{
+                    double bono=0.0;
+                    string concepto="";
+                    cout<<"agrega un concepto";
+                    cin >>concepto;
+                    cout<<"agrega una monto de bonificación";
+                    cin >>bono;
+                    empleados[i].agregarBonificacion(bono, concepto);
+
+                    break;
+                }
+                case 'b':{
+                    double deduccion=0.0;
+                    string concepto="";
+                    cout<<"agrega un concepto";
+                    cin >>concepto;
+                    cout<<"agrega una monto de deduccion";
+                    cin >>deduccion;
+                    empleados[i].agregarDeduccion(deduccion, concepto);
+
+                    break;
+                }
+                default:
+                    break;
+            }
+            }while(opcionBonos !='c');
+            break;
+        }
         
 
         }
-    } while (opcion != 'f');
+    } while (opcion != 'g');
 
     
     return 0;
