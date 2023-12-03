@@ -44,7 +44,7 @@ int main(){
                 cout<<"Matricula: "<<empleados[indiceModificar].getMatricula();
                 cout<<"Salario: "<<empleados[indiceModificar].getSalario();
                 cout<<"ingrese que datos quieres modificar"<<endl;
-                cout<<"a)Nombre b)Matricula c)Salario d)Volver al menu"<<endl;
+                cout<<"a)Nombre b)Matricula c)Salario d)Modificar todas e)Volver al menu"<<endl;
                 cin>>opcionModificar;
                 switch (opcionModificar)
                 {
@@ -57,46 +57,73 @@ int main(){
                     break;
                 }
                 case 'b':{
-                    string newNombre;
+                    double newMatricula;
                     cout<<"Ingrese el nuevo nombre";
-                    cin>>newNombre;
-                    empleados[indiceModificar].setNombre(newNombre);
+                    cin>>newMatricula;
+                    empleados[indiceModificar].setMatricula(newMatricula);
 
                     break;
                 }
                 case 'c':{
-                    string newNombre;
+                    double newSalario;
                     cout<<"Ingrese el nuevo nombre";
-                    cin>>newNombre;
-                    empleados[indiceModificar].setNombre(newNombre);
+                    cin>>newSalario;
+                    empleados[indiceModificar].setSalario(newSalario);
 
                     break;
+                }
+                case 'd':{
+                    string newNombre;
+                    double newMatricula;
+                    double newSalario;
+
+                    cout<<"Ingrese el nuevo nombre";
+                    cin>>newNombre;
+                    
+                    cout<<"Ingrese el nuevo matricula";
+                    cin>>newMatricula;
+
+                    cout<<"Ingrese el nuevo salario";
+                    cin>>newSalario;
+
+                    empleados[indiceModificar].setNombre(newNombre);
+                    empleados[indiceModificar].setMatricula(newMatricula);
+                    empleados[indiceModificar].setSalario(newSalario);
+
+
                 }
                 default:
                     break;
                 }
-            }while(opcion != 'd');
+            }while(opcion != 'e');
             break;
         }
 
         case 'c': {
 
-            int indice; 
 
-            string nombre, matricula;
-            double salario;
-            cout << "Ingrese el indice del empleado";
-            cin >> indice;
-            empresa empleado (nombre, matricula, salario);
-            empleados[contador]=empleado;
-            contador 
+        }
+        case 'd' :{
+            for (int i=0; i<contador;i++){
+                cout<<"Nombre: "<<empleados[i].getNombre()<<"\n";
+                cout<<"Matricula: "<<empleados[i].getMatricula()<<"\n";
+                cout<<"Salario: "<<empleados[i].getSalario()<<"\n";
+            }
+        }
+        case 'e':{
+            int indice;
+            cout<<"Seleciona el indice de el empleado que deseas consultar";
+            cin>>indice;
+            cout<<"Nombre: "<<empleados[indice].getNombre()<<"\n";
+            cout<<"Matricula: "<<empleados[indice].getMatricula()<<"\n";
+            cout<<"Salario: "<<empleados[indice].getSalario()<<"\n";
         }
 
         
         
 
         }
-    } while (opcion != 'c');
+    } while (opcion != 'f');
 
     
     return 0;
