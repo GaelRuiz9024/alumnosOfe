@@ -11,7 +11,7 @@ int main(){
     bool correcto=false;
     do{
         string contrasena="";
-        cout<<"Ingrese la contrasena";
+        cout<<"Ingrese la contrasena: ";
         cin>>contrasena;
         if(contrasena=="hola123" || contrasena=="123456" || contrasena=="adios321"){
             correcto=true;
@@ -38,28 +38,37 @@ int main(){
                 switch (opcion) {
                 case 'a': {
                         system("cls");
+                        cout<<"*****AGREGAR NUEVOS USUARIOS*****\n";
 
                         string nombre, matricula;
                         double salario;
                         cout << "Nombre del empleado: ";
                         cin >> nombre;
-                        cout << "Matrícula del empleado: ";
+                        cout << "Matricula del empleado: ";
                         cin >> matricula;
                         cout << "Salario del empleado: ";
                         cin >> salario;
                         empresa empleado(nombre, matricula, salario);
                         empleados[contador] = empleado;
                         contador++;
+
+                        cout<<"Usuario agregado correctamente\n";
+                        system("PAUSE()");
                         break;  
                 }
 
                 case 'b': {
                     system("cls");
                     cout<<"*****MODIFICAR USUARIOS*****\n";
-                int indiceModificar=0;
-                char opcionModificar;
+                    int indiceModificar=0;
+                    char opcionModificar;
                     cout << "Ingrese el indice de la cuenta: ";
                     cin >> indiceModificar;
+                    if(indiceModificar>=contador){ 
+                        cout<<"indice fuera de rango, intente de nuevo\n";
+                        system("PAUSE()");
+                        break;
+                    } 
                     do {
                         cout<<"Nombre: "<<empleados[indiceModificar].getNombre()<<"\n";
                         cout<<"Matricula: "<<empleados[indiceModificar].getMatricula()<<"\n";
@@ -71,8 +80,8 @@ int main(){
                         cout<<"d)Modificar todas\n";
                         cout<<")Volver al menu\n";
                         cin>>opcionModificar;
-                        switch (opcionModificar)
-                        {
+ 
+                        switch (opcionModificar){
                         case 'a':{
                             system("cls");
 
@@ -80,6 +89,9 @@ int main(){
                             cout<<"Ingrese el nuevo nombre: ";
                             cin>>newNombre;
                             empleados[indiceModificar].setNombre(newNombre);
+
+                            cout<<"Nombre modificado correctamente";
+                            system("PAUSE()");
 
                             break;
                         }
@@ -92,6 +104,8 @@ int main(){
                             cin>>newMatricula;
                             empleados[indiceModificar].setMatricula(newMatricula);
 
+                            cout<<"Matricula modificada correctamente\n";
+                            system("PAUSE()");
                             break;
                         }
                         case 'c':{
@@ -103,6 +117,8 @@ int main(){
                             cin>>newSalario;
                             empleados[indiceModificar].setSalario(newSalario);
 
+                            cout<<"Salario modificado correctamente\n";
+                            system("PAUSE()");
                             break;
                         }
                         case 'd':{
@@ -124,7 +140,9 @@ int main(){
                             empleados[indiceModificar].setMatricula(newMatricula);
                             empleados[indiceModificar].setSalario(newSalario);
 
-
+                            cout<<"Datos modificados correctamente\n";
+                            system("PAUSE()");
+                            break;
                         }
                         default:
                             break;
@@ -145,7 +163,7 @@ int main(){
                             empleados[i] = empleados[i + 1];
                         }
                         --contador;
-                    } else {cout << "Posición inválida\n"; }
+                    } else {cout << "Posicion inválida\n"; }
 
                     cout << "El usuario ha sido eliminado correctamente\n" ;
                     system("PAUSE()");
@@ -181,8 +199,13 @@ int main(){
                     system("cls");
                     cout<<"*****CONSULTAR EMPLEADO*****\n";
                     int indice=0;
-                    cout<<"Seleciona el indice de el empleado que deseas consultar";
+                    cout<<"Seleciona el indice de el empleado que deseas consultar: ";
                     cin>>indice;
+                    if(indice>=contador){ 
+                        cout<<"indice fuera de rango, intente de nuevo\n";
+                        system("PAUSE()");
+                        break;
+                    } 
                     cout<<"Nombre: "<<empleados[indice].getNombre()<<"\n";
                     cout<<"Matricula: "<<empleados[indice].getMatricula()<<"\n";
                     cout<<"Salario base: "<<empleados[indice].getSalario()<<"\n";
@@ -198,6 +221,7 @@ int main(){
                     system("PAUSE()");
 
                     break;
+                    
                 }
                 case 'f':{
                     system("cls");
@@ -206,40 +230,48 @@ int main(){
                     int i=0;
                     cout<<"Seleciona el indice de el empleado que deseas modificar: ";
                     cin>>i;
-
+                    if(i>=contador){ 
+                        cout<<"indice fuera de rango, intente de nuevo\n";
+                        system("PAUSE()");
+                        break;
+                    } 
                     do{
                         cout<<"a)agregar bono\n";
                         cout<<"b)agregar deduccion\n";
                         cout<<"c)salir\n";
                         cin>>opcionBonos;
                         switch (opcionBonos){
-                        case 'a':{
-                            system("cls");
-                            double bono=0.0;
-                            string concepto="";
-                            cout<<"agrega un concepto: ";
-                            cin >>concepto;
-                            cout<<"agrega una monto de bonificacion: ";
-                            cin >>bono;
-                            empleados[i].agregarBonificacion(bono, concepto);
+                            case 'a':{
+                                system("cls");
+                                double bono=0.0;
+                                string concepto="";
+                                cout<<"agrega un concepto: ";
+                                cin >>concepto;
+                                cout<<"agrega una monto de bonificacion: ";
+                                cin >>bono;
+                                empleados[i].agregarBonificacion(bono, concepto);
 
-                            break;
-                        }
-                        case 'b':{
-                            system("cls");
-                            double deduccion=0.0;
-                            string concepto="";
-                            cout<<"agrega un concepto: ";
-                            cin >>concepto;
-                            cout<<"agrega una monto de deduccion: ";
-                            cin >>deduccion;
-                            empleados[i].agregarDeduccion(deduccion, concepto);
+                                cout<<"Bono agregado correctamente\n";
+                                system("PAUSE()");
+                                break;
+                            }
+                            case 'b':{
+                                system("cls");
+                                double deduccion=0.0;
+                                string concepto="";
+                                cout<<"agrega un concepto: ";
+                                cin >>concepto;
+                                cout<<"agrega una monto de deduccion: ";
+                                cin >>deduccion;
+                                empleados[i].agregarDeduccion(deduccion, concepto);
 
-                            break;
-                        }
-                        default:
-                            break;
-                    }
+                                cout<<"Deduccion agregada correctamente\n";
+                                system("PAUSE()");
+                                break;
+                            }
+                            default:
+                                break;
+                            }
                     }while(opcionBonos !='c');
                     break;
                 }
