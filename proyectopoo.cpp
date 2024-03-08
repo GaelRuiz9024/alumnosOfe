@@ -25,7 +25,7 @@ int main(){
 
             do {
                 system("cls");
-                cout<<"*****CREAR USUARIOS*****\n";
+                cout<<"*****hole*****\n";
                 cout<<"a)Agregar nuevo empleado \n";
                 cout<<"b)Modificar empleado\n";
                 cout<<"c)Eliminar empleado\n";
